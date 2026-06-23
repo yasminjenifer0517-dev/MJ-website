@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapido SOP | Ride Stopped Midway Presentation</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for UI Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Custom Cursor Follower -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
+
+    <!-- Background Grid and Glows -->
+    <div class="bg-elements">
+        <div class="bg-grid"></div>
+        <div class="bg-glow glow-1"></div>
+        <div class="bg-glow glow-2"></div>
+        <div class="bg-glow glow-3"></div>
+    </div>
+
+    <!-- Presentation Progress Bar -->
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="progress-indicator"></div>
+    </div>
+
+    <!-- Top Branding & Status Bar -->
+    <header class="top-nav">
+        <div class="logo">
+            <svg viewBox="0 0 100 32" class="rapido-logo-svg">
+                <rect x="0" y="0" width="100" height="32" rx="6" fill="#F5C118" />
+                <text x="50" y="21" font-family="'Outfit', sans-serif" font-weight="900" font-size="16" fill="#111116" text-anchor="middle" letter-spacing="1">RAPIDO</text>
+            </svg>
+            <span class="logo-divider"></span>
+            <span class="logo-subtitle">SOP Portal: Ride Interruption</span>
+        </div>
+        <div class="top-controls">
+            <button class="icon-btn" id="sound-toggle" title="Toggle Sound Effects">
+                <i class="fa-solid fa-volume-high"></i>
+            </button>
+            <button class="icon-btn" id="shortcuts-btn" title="Keyboard Shortcuts">
+                <i class="fa-solid fa-keyboard"></i>
+            </button>
+            <div class="autoplay-badge" id="autoplay-indicator">
+                <span class="autoplay-pulse"></span> AUTOPLAY ON
+            </div>
+        </div>
+    </header>
+
+    <!-- Side Navigation Dots -->
+    <nav class="side-dots" id="dots-container">
+        <!-- Dots injected by JS -->
+    </nav>
+
+    <!-- Presentation Container -->
+    <main id="presentation-container" class="presentation-container">
+        
+        <!-- Slide 1: Cover Page -->
+        <section class="slide active" id="slide-1" data-index="0">
+            <div class="slide-content cover-layout">
+                <div class="cover-text anim-element">
+                    <span class="badge anim-delay-1">STANDARD OPERATING PROCEDURE</span>
+                    <h1 class="anim-delay-2">Ride Stopped Midway</h1>
+                    <p class="anim-delay-3">An interactive guide for Captains & Support Executives navigating unexpected trip interruptions safely and professionally.</p>
+                    <div class="cover-actions anim-delay-4">
+                        <button class="btn btn-primary" id="start-btn">
+                            <span>Start Presentation</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                        <button class="btn btn-secondary" id="quiz-jump-btn">
+                            <span>Skip to Quiz</span>
+                            <i class="fa-solid fa-gamepad"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="cover-visual anim-element anim-delay-3">
+                    <div class="visual-wrapper">
+                        <!-- Animated Vector: Interrupted path concept -->
+                        <svg class="cover-svg" viewBox="0 0 400 400" width="100%" height="100%">
+                            <!-- Pulse circles -->
+                            <circle cx="200" cy="200" r="150" fill="none" stroke="rgba(245, 193, 24, 0.05)" stroke-width="2" />
+                            <circle cx="200" cy="200" r="100" fill="none" stroke="rgba(245, 193, 24, 0.1)" stroke-width="1.5" />
+                            
+                            <!-- Dashed Path -->
+                            <path d="M 50 300 Q 150 100 200 200 T 350 100" fill="none" stroke="#2a2a35" stroke-width="6" stroke-linecap="round" />
+                            <path d="M 50 300 Q 150 100 200 200 T 350 100" fill="none" stroke="#F5C118" stroke-width="6" stroke-dasharray="15, 15" stroke-linecap="round" class="dash-animate" />
+                            
+                            <!-- Interruption Point -->
+                            <circle cx="200" cy="200" r="16" fill="#F5C118" class="pulse-point" />
+                            <circle cx="200" cy="200" r="28" fill="none" stroke="#F5C118" stroke-width="2" class="ripple-animate" />
+                            <path d="M 200 192 L 200 203 M 200 208 L 200 210" stroke="#111116" stroke-width="3" stroke-linecap="round" />
+                            
+                            <!-- Startup Marker -->
+                            <circle cx="50" cy="300" r="8" fill="#10B981" />
+                            <text x="50" y="325" fill="#a0a0b0" font-family="'Outfit', sans-serif" font-size="12" text-anchor="middle">Start</text>
+
+                            <!-- Destination Marker -->
+                            <circle cx="350" cy="100" r="8" fill="#EF4444" />
+                            <text x="350" y="80" fill="#a0a0b0" font-family="'Outfit', sans-serif" font-size="12" text-anchor="middle">Destination</text>
+
+                            <!-- Mini floating dashboard element -->
+                            <g transform="translate(240, 240)" class="floating-hud">
+                                <rect x="0" y="0" width="120" height="60" rx="10" fill="rgba(25, 25, 35, 0.85)" stroke="rgba(245, 193, 24, 0.2)" stroke-width="1" />
+                                <text x="15" y="25" fill="#88889d" font-family="'Outfit', sans-serif" font-size="10" font-weight="600">STATUS</text>
+                                <text x="15" y="45" fill="#EF4444" font-family="'Outfit', sans-serif" font-size="14" font-weight="700">STOPPED</text>
+                                <circle cx="100" cy="35" r="6" fill="#EF4444" class="pulse-red" />
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: Scenario 1 - Vehicle Breakdown -->
+        <section class="slide" id="slide-2" data-index="1">
+            <div class="slide-content split-layout">
+                <div class="content-left">
+                    <div class="scenario-number">SCENARIO 01</div>
+                    <h2 class="scenario-title">Vehicle Breakdown</h2>
+                    <div class="situation-box">
+                        <span class="situation-label">SITUATION</span>
+                        <p class="situation-desc">The captain's bike breaks down during the trip due to a mechanical issue (engine failure, chain snap, etc.), making it impossible to continue.</p>
+                    </div>
+                    <div class="video-box">
+                        <video class="scenario-video" autoplay muted loop playsinline>
+                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay"></div>
+                    </div>
+                </div>
+                <div class="content-right">
+                    <h3 class="actions-header">Required Actions (SOP)</h3>
+                    <div class="actions-list">
+                        <div class="action-card" style="--card-index: 1;">
+                            <div class="card-num">01</div>
+                            <div class="card-text">
+                                <h4>Inform immediately</h4>
+                                <p>Inform the customer immediately about the breakdown in a calm, clear tone.</p>
+                            </div>
+                        </div>
+                        <div class="action-card" style="--card-index: 2;">
+                            <div class="card-num">02</div>
+                            <div class="card-text">
+                                <h4>Apologize</h4>
+                                <p>Apologize sincerely for the unexpected delay and inconvenience caused to their schedule.</p>
+                            </div>
+                        </div>
+                        <div class="action-card" style="--card-index: 3;">
+                            <div class="card-num">03</div>
+                            <div class="card-text">
+                                <h4>Safely stop</h4>
+                                <p>Pull over and park the vehicle in a safe, designated spot off the main roadway traffic.</p>
+                            </div>
+                        </div>
+                        <div class="action-card" style="--card-index: 4;">
+                            <div class="card-num">04</div>
+                            <div class="card-text">
+                                <h4>Arrange alternative</h4>
+                                <p>Help the customer book an alternative Rapido ride on their phone or assist them in contacting customer support.</p>
+                            </div>
+                        </div>
+                        <div class="action-card" style="--card-index: 5;">
+                            <div class="card-num">05</div>
+                            <div class="card-text">
+                                <h4>Report issue</h4>
+                                <p>Ensure the trip issue is logged and marked as a breakdown directly in the Captain app dashboard.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Scenario 2 - Flat Tyre -->
+        <section class="slide" id="slide-3" data-index="2">
+            <div class="slide-content split-layout">
+                <div class="content-left">
+                    <div class="scenario-number">SCENARIO 02</div>
+                    <h2 class="scenario-title">Flat Tyre / Puncture</h2>
+                    <div class="situation-box">
+                        <span class="situation-label">SITUATION</span>
+                        <p class="situation-desc">The Captain's bike gets a puncture midway through the journey, compromising the safety and control of the vehicle.</p>
+                    </div>
+                    <div class="video-box">
+                        <video class="scenario-video" autoplay muted loop playsinline>
+                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay"></div>
+                    </div>
+                </div>
+                <div class="content-right">
+                    <h3 class="actions-header">Required Actions (SOP)</h3>
+                    <div class="actions-list">
+                        <div class="action-card" style="--card-index: 1;">
+                            <div class="card-num">01</div>
+                            <div class="card-text">
+                                <h4>Stop Safely</h4>
+                                <p>Safely decelerate and bring the vehicle to a halt in a secure location, avoiding sudden braking.</p>
+                            </div>
+                        </div>
+                        <div class="action-card" style="--card-index: 2;">
+                            <div class="card-num">02</div>
+                            <div class="card-text">
+                                <h4>Explain Clearly</h4>
+                                <p>Explain the flat tyre situation clearly to the customer, displaying the physical issue to establish trust.</p>
+                            </div>
+                        </div>
+                        <div class="action-card" style="--card-index: 3;">
+                            <div class="card-num">03</div>
+                            <div class="card-text">
+                                <h4>Alternative Ride</h4>
+                                <p>Assist the customer in booking an alternative ride or arranging alternative transport, preventing them from being stranded.</p>
+                            </div>
+                        </div>
+                        <div class="action-card" style="--card-index: 4;">
+                            <div class="card-num">04</div>
+                            <div class="card-text">
+                                <h4>Safe Spot Assurance</h4>
+                                <p>Verify that the customer is in a safe, secure public area before the Captain leaves to fix the tyre.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Scenario 3 - Medical Emergency -->
+        <section class="slide" id="slide-4" data-index="3">
+            <div class="slide-content split-layout">
+                <div class="content-left">
+                    <div class="scenario-number">SCENARIO 03</div>
+                    <h2 class="scenario-title">Medical Emergency</h2>
+                    <div class="situation-box">
+                        <span class="situation-label">SITUATION</span>
+                        <p class="situation-desc">The Captain suddenly feels unwell, dizzy, or suffers an injury/medical episode during the ride, making it unsafe to ride.</p>
+                    </div>
+                    <div class="video-box">
+                        <video class="scenario-video" autoplay muted loop playsinline>
+                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay"></div>
+                    </div>
+                </div>
+                <div class="content-right">
+                    <h3 class="actions-header">Required Actions (SOP)</h3>
+                    <div class="actions-list">
+                        <div class="action-card" style="--card-index: 1;">
+                            <div class="card-num">01</div>
+                            <div class="card-text">
+                                <h4>Stop in Public Area</h4>
+                                <p>Immediately pull over in a safe, well-lit public area. Turn off the engine.</p>
+                            </div>
+                        </div>
+                        <div class="action-card" style="--card-index: 2;">
+                            <div class="card-num">02</div>
+                            <div class="card-text">
+                                <h4>Inform the Customer</h4>
+                                <p>Inform the customer politely about feeling unwell. Do not force yourself to continue driving.</p>
+                            </div>
+                        </div>
+                        <div class="action-card" style="--card-index: 3;">
+                            <div class="card-num">03</div>
+                            <div class="card-text">
+                                <h4>Contact Support</h4>
+                                <p>Contact emergency services (if needed) or the Rapido Support Team immediately for assistance.</p>
+                            </div>
+                        </div>
+                        <div class="action-card" style="--card-index: 4;">
+                            <div class="card-num">04</div>
+                            <div class="card-text">
+                                <h4>Arrange Another Ride</h4>
+                                <p>Assist the customer in getting another ride so they can reach their destination safely.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Scenario 4 - Route Blocked / Traffic -->
+        <section class="slide" id="slide-5" data-index="4">
+            <div class="slide-content split-layout">
+                <div class="content-left">
+                    <div class="scenario-number">SCENARIO 04</div>
+                    <h2 class="scenario-title">Route Blocked / Heavy Traffic</h2>
+                    <div class="situation-box">
+                        <span class="situation-label">SITUATION</span>
+                        <p class="situation-desc">The planned route is blocked by an accident, waterlogging/flooding, police barricades, or intense traffic congestion that prevents progress.</p>
+                    </div>
+                    <div class="video-box">
+                        <video class="scenario-video" autoplay muted loop playsinline>
+                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay"></div>
+                    </div>
+                </div>
+                <div class="content-right">
+                    <h3 class="actions-header">Required Actions (SOP)</h3>
+                    <div class="actions-list">
+                        <div class="action-card" style="--card-index: 1;">
+                            <div class="card-num">01</div>
+                            <div class="card-text">
+                                <h4>Inform Customer</h4>
+                                <p>Communicate the roadblock/traffic issue clearly to the customer, explaining why you have stopped.</p>
+                            </div>
+                        </div>
+                        <div class="action-card" style="--card-index: 2;">
+                            <div class="card-num">02</div>
+                            <div class="card-text">
+                                <h4>Suggest Alternate Route</h4>
+                                <p>Propose an alternate path if available, and check if the customer is okay with navigating the redirection.</p>
+                            </div>
+                        </div>
+                        <div class="action-card" style="--card-index: 3;">
+                            <div class="card-num">03</div>
+                            <div class="card-text">
+                                <h4>Help Arrange Alternative</h4>
+                                <p>If the ride cannot continue or alternate routes are impossible, cancel the ride and assist the customer in securing a different form of travel.</p>
+                            </div>
+                        </div>
+                        <div class="action-card" style="--card-index: 4;">
+                            <div class="card-num">04</div>
+                            <div class="card-text">
+                                <h4>Report in App</h4>
+                                <p>Log the cancellation in the app under "Route Blocked" to ensure support logs the traffic/route discrepancy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Scenario 5 - Safety Concern -->
+        <section class="slide" id="slide-6" data-index="5">
+            <div class="slide-content split-layout">
+                <div class="content-left">
+                    <div class="scenario-number">SCENARIO 05</div>
+                    <h2 class="scenario-title">Safety Concern</h2>
+                    <div class="situation-box">
+                        <span class="situation-label">SITUATION</span>
+                        <p class="situation-desc">The Captain spots extremely hazardous road conditions (e.g. violent protests, sudden severe weather, localized unrest, or dangerous drivers).</p>
+                    </div>
+                    <div class="video-box">
+                        <video class="scenario-video" autoplay muted loop playsinline>
+                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay"></div>
+                    </div>
+                </div>
+                <div class="content-right">
+                    <h3 class="actions-header">Required Actions (SOP)</h3>
+                    <div class="actions-list">
+                        <div class="action-card" style="--card-index: 1;">
+                            <div class="card-num">01</div>
+                            <div class="card-text">
+                                <h4>Prioritize Safety</h4>
+                                <p>Safety is the absolute priority. Do not attempt to force your way through a dangerous area.</p>
+                            </div>
+                        </div>
+                        <div class="action-card" style="--card-index: 2;">
+                            <div class="card-num">02</div>
+                            <div class="card-text">
+                                <h4>Stop in Secure Location</h4>
+                                <p>Pull over and secure the vehicle at the nearest safe spot (e.g. public hotel, gas station, metro station).</p>
+                            </div>
+                        </div>
+                        <div class="action-card" style="--card-index: 3;">
+                            <div class="card-num">03</div>
+                            <div class="card-text">
+                                <h4>Explain the Reason</h4>
+                                <p>Calmly explain the safety risk to the customer and assure them of their personal safety.</p>
+                            </div>
+                        </div>
+                        <div class="action-card" style="--card-index: 4;">
+                            <div class="card-num">04</div>
+                            <div class="card-text">
+                                <h4>Contact Support</h4>
+                                <p>Call support immediately to report the danger zone so other Captains can be rerouted/warned.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Scenario 6 - Customer Requests Midway End -->
+        <section class="slide" id="slide-7" data-index="6">
+            <div class="slide-content split-layout">
+                <div class="content-left">
+                    <div class="scenario-number">SCENARIO 06</div>
+                    <h2 class="scenario-title">Customer Requests Midway End</h2>
+                    <div class="situation-box">
+                        <span class="situation-label">SITUATION</span>
+                        <p class="situation-desc">The customer requests to end the ride early due to personal reasons, meeting changes, or wanting to walk the rest of the way.</p>
+                    </div>
+                    <div class="video-box">
+                        <video class="scenario-video" autoplay muted loop playsinline>
+                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" type="video/mp4">
+                        </video>
+                        <div class="video-overlay"></div>
+                    </div>
+                </div>
+                <div class="content-right">
+                    <h3 class="actions-header">Required Actions (SOP)</h3>
+                    <div class="actions-list">
+                        <div class="action-card" style="--card-index: 1;">
+                            <div class="card-num">01</div>
+                            <div class="card-text">
+                                <h4>Confirm Request</h4>
+                                <p>Politely confirm the customer's request, asking if everything was satisfactory during the trip.</p>
+                            </div>
+                        </div>
+                        <div class="action-card" style="--card-index: 2;">
+                            <div class="card-num">02</div>
+                            <div class="card-text">
+                                <h4>End Ride correctly</h4>
+                                <p>End the ride immediately in the app at the current location to ensure proper GPS and fair calculation.</p>
+                            </div>
+                        </div>
+                        <div class="action-card" style="--card-index: 3;">
+                            <div class="card-num">03</div>
+                            <div class="card-text">
+                                <h4>Ensure Safe Drop-off</h4>
+                                <p>Ensure the customer is dropped off in a safe location, especially at night or on busy expressways.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Key SOP Points (Dashboard) -->
+        <section class="slide" id="slide-8" data-index="7">
+            <div class="slide-content sop-dashboard-layout">
+                <div class="dashboard-header anim-element">
+                    <span class="badge">ALWAYS APPLICABLE</span>
+                    <h2>Key SOP Rules Checklist</h2>
+                    <p>Mandatory rules that every Captain and Executive must execute in any ride-stopped-midway event.</p>
+                </div>
+                
+                <div class="dashboard-grid anim-element anim-delay-2">
+                    <div class="sop-card card-yellow">
+                        <div class="sop-card-icon">
+                            <i class="fa-solid fa-shield-heart"></i>
+                        </div>
+                        <h3>Customer Safety First</h3>
+                        <p>Under all circumstances, the physical security and well-being of the customer is our primary directive.</p>
+                    </div>
+                    
+                    <div class="sop-card">
+                        <div class="sop-card-icon">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <h3>Clear Communication</h3>
+                        <p>Explain the reason for stopping transparently and professionally without causing panic.</p>
+                    </div>
+                    
+                    <div class="sop-card">
+                        <div class="sop-card-icon">
+                            <i class="fa-solid fa-ban"></i>
+                        </div>
+                        <h3>No Extra Cash Demands</h3>
+                        <p>Never request cash or adjustments outside the app. The system automatically computes fare breakdowns.</p>
+                    </div>
+                    
+                    <div class="sop-card">
+                        <div class="sop-card-icon">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                        </div>
+                        <h3>Log in Support Channels</h3>
+                        <p>Report the interruption via the official app support panel or contact supervisor hotlines immediately.</p>
+                    </div>
+                    
+                    <div class="sop-card">
+                        <div class="sop-card-icon">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <h3>Polite & Professional</h3>
+                        <p>Remain calm and courteous throughout, keeping in mind that the customer is experiencing a disruption.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Interactive SOP Practice Quiz -->
+        <section class="slide" id="slide-9" data-index="8">
+            <div class="slide-content quiz-layout">
+                <div class="quiz-header anim-element">
+                    <span class="badge">KNOWLEDGE RETENTION</span>
+                    <h2>Interactive SOP Practice</h2>
+                    <p>Test your understanding of the SOP protocols. Select the best course of action for the situation below.</p>
+                </div>
+
+                <div class="quiz-body anim-element anim-delay-2">
+                    <div class="quiz-box">
+                        <div class="quiz-progress">Question <span id="q-current">1</span> of 3</div>
+                        <div class="quiz-question" id="quiz-question-text">
+                            Loading situation...
+                        </div>
+                        <div class="quiz-options" id="quiz-options-container">
+                            <!-- Options injected by JS -->
+                        </div>
+                        <div class="quiz-feedback-box hidden" id="quiz-feedback">
+                            <div class="feedback-icon" id="feedback-icon"></div>
+                            <div class="feedback-text">
+                                <h4 id="feedback-title">Correct!</h4>
+                                <p id="feedback-desc">Great job. That is exactly what the SOP requires.</p>
+                            </div>
+                            <button class="btn btn-primary btn-sm" id="next-question-btn">Next Question</button>
+                        </div>
+                    </div>
+
+                    <div class="quiz-score-board hidden" id="quiz-scoreboard">
+                        <i class="fa-solid fa-trophy trophy-icon"></i>
+                        <h3>Practice Completed!</h3>
+                        <p class="score-text">You scored <span id="final-score" class="highlight">0</span> out of 3</p>
+                        <p class="score-eval" id="score-evaluation">Excellent understanding of Rapido SOPs!</p>
+                        <button class="btn btn-primary" id="restart-quiz-btn">Restart Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Bottom HUD Controls -->
+    <footer class="bottom-hud">
+        <!-- Control buttons -->
+        <div class="hud-buttons">
+            <button class="hud-btn" id="prev-btn" title="Previous Slide (Left Arrow)">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            
+            <button class="hud-btn" id="autoplay-btn" title="Toggle Auto-play">
+                <i class="fa-solid fa-play"></i>
+            </button>
+
+            <button class="hud-btn" id="next-btn" title="Next Slide (Right Arrow/Space)">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Slide indicators -->
+        <div class="hud-slide-indicator">
+            <span id="current-slide">01</span>
+            <span class="indicator-separator">/</span>
+            <span id="total-slides">09</span>
+        </div>
+
+        <!-- Utility controls -->
+        <div class="hud-utilities">
+            <button class="hud-btn" id="fullscreen-btn" title="Toggle Fullscreen (F)">
+                <i class="fa-solid fa-expand"></i>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Keyboard Shortcuts Modal -->
+    <div class="modal-overlay" id="shortcuts-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Keyboard Shortcuts</h3>
+                <button class="close-btn" id="close-modal-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="shortcut-row">
+                    <span class="key">Space</span> / <span class="key"><i class="fa-solid fa-arrow-right"></i></span> / <span class="key"><i class="fa-solid fa-arrow-down"></i></span>
+                    <span class="shortcut-desc">Next Slide</span>
+                </div>
+                <div class="shortcut-row">
+                    <span class="key"><i class="fa-solid fa-arrow-left"></i></span> / <span class="key"><i class="fa-solid fa-arrow-up"></i></span>
+                    <span class="shortcut-desc">Previous Slide</span>
+                </div>
+                <div class="shortcut-row">
+                    <span class="key">P</span>
+                    <span class="shortcut-desc">Toggle Auto-play (Autoplay)</span>
+                </div>
+                <div class="shortcut-row">
+                    <span class="key">F</span>
+                    <span class="shortcut-desc">Toggle Fullscreen Mode</span>
+                </div>
+                <div class="shortcut-row">
+                    <span class="key">M</span>
+                    <span class="shortcut-desc">Toggle Audio Effects</span>
+                </div>
+                <div class="shortcut-row">
+                    <span class="key">Esc</span>
+                    <span class="shortcut-desc">Close Modal / Exit Fullscreen</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- UI Audio Elements (Not needed because we synthesize using Web Audio API dynamically!) -->
+    <script src="app.js"></script>
+</body>
+</html>
